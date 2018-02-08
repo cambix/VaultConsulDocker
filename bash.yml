@@ -1,0 +1,9 @@
+bash_test:
+  container_name: bash.test
+  image: bash.test
+  environment:
+    - CONSUL_HTTP_ADDR=${LOCAL_IP}:9500
+    - VAULT_ADDR=http://${LOCAL_IP}:9200
+  volumes:
+    - ./etc/bash.test/data:/mnt/data
+  command: tail -f /dev/null

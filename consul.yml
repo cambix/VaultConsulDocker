@@ -1,0 +1,10 @@
+consul:
+  container_name: consul.server
+  command: agent -server -bind 0.0.0.0 -client 0.0.0.0 -bootstrap-expect=1
+  image: consul:latest
+  volumes:
+    - ./etc/consul.server/config:/consul/config
+  ports:
+    - "9300:9300"
+    - "9500:9500"
+    - "9600:9600/udp"

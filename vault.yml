@@ -1,0 +1,25 @@
+vault:
+  container_name: vault.server
+  image: vault:latest
+  ports:
+    - "9200:8200"
+  volumes:
+    - ./etc/vault.server/config:/mnt/vault/config
+    - ./etc/vault.server/data:/mnt/vault/data
+    - ./etc/vault.server/logs:/mnt/vault/logs
+  cap_add:
+    - IPC_LOCK
+  environment:
+    - VAULT_LOCAL_CONFIG={"backend":{"consul":{"address":"${LOCAL_IP}:9500", "api_addr":"${LOCAL_IP}", "path":"vault/"}},"listener":{"tcp":{"address":"0.0.0.0:8200","tls_disable":1}}}
+  command: server
+
+
+consul agent -join=http://172.17.0.2:9301 -data-dir=/tmp/consul
+consul agent -data-dir=/tmp/consul
+consul agent -join=$CONSUL_HTTP_ADDR -data-dir=/tmp/consul
+consul agent -join=http://$CONSUL_HTTP_ADDR -data-dir=/tmp/consul
+
+consul agent -join=172.17.0.2:9500 -data-dir=/tmp/consul
+
+consul agent -retry-join $CONSUL_HTTP_ADDR -data-dir=/mnt/data
+
