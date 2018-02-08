@@ -1,0 +1,11 @@
+{
+    "bind_addr": "172.17.0.4",
+    "node_name": "bash-test-client",
+    "server": false,
+    "datacenter": "dc1",
+    "data_dir": "/mnt/data",
+    "log_level": "INFO",
+    "retry_join": [
+        "172.17.0.2"
+    ]
+}
