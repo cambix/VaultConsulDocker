@@ -12,7 +12,7 @@ To start up run the consul container first:
 docker-compose -f consul.yml up
 docker-compose -f vault.yml up
 ```
-iTo stop containers
+To stop containers
 ```sh
 docker-compose -f consul.yml down
 docker-compose -f vault.yml down
